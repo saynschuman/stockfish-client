@@ -2,6 +2,7 @@
   "name": "stockfish-client",
   "version": "1.0.0",
   "description": "A TypeScript module to interact with Stockfish chess engine",
+  "repository": "https://github.com/saynschuman/stockfish-client",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
