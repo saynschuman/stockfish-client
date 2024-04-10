@@ -65,6 +65,16 @@ export default class StockfishClient {
     return this.ready.state === "pending";
   }
 
+  public processBestMatch(message: MessageEvent): string | undefined {
+    const text = message.data
+
+    const bmMatch = text.match(/^bestmove (\w{4,5})|^bestmove ([PNBRQ]@\w{2})/)
+    if (bmMatch) {
+      if (bmMatch[1]) return bmMatch[1]
+      else if (bmMatch[2]) return bmMatch[2]
+    }
+  }
+
   /*
    * Stockfish output processing done here
    * Calls the 'resolve' function of the 'ready' Promise when 'bestmove' uci
