@@ -28,5 +28,6 @@ export default class StockfishClient {
     private ready;
     constructor(expectedPvs: number);
     isSearching(): boolean;
+    processBestMatch(message: MessageEvent): string | undefined;
     processOutput(message: MessageEvent): ClientEval | void;
 }
