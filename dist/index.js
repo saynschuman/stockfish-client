@@ -43,13 +43,19 @@ class StockfishClient {
                 return bmMatch[2];
         }
     }
-    processScore(message) {
+    processScore(message, expectedDepth) {
         var _a;
         const text = message.data;
-        const score = text.match(/\b(score)\b/);
-        const arr = score === null || score === void 0 ? void 0 : score.input;
-        if (arr) {
-            return (_a = arr.split(' ')) === null || _a === void 0 ? void 0 : _a[9];
+        const stringWithScore = text.match(/\b(score)\b/);
+        const matches = EVAL_REGEX.exec(text);
+        if (!matches)
+            return;
+        const depth = parseInt(matches[1]);
+        const scoreResultString = stringWithScore === null || stringWithScore === void 0 ? void 0 : stringWithScore.input;
+        if (scoreResultString && depth && expectedDepth === depth) {
+            const scoreStr = (_a = scoreResultString.split(' ')) === null || _a === void 0 ? void 0 : _a[9];
+            const score = parseInt(scoreStr);
+            return { depth, score };
         }
     }
     /*
