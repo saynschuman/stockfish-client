@@ -75,6 +75,16 @@ export default class StockfishClient {
     }
   }
 
+  public processScore(message: MessageEvent) {
+    const text = message.data
+
+    const score = text.match(/\b(score)\b/)
+    const arr = score?.input
+    if (arr) {
+      return arr.split(' ')?.[9]
+    }
+  }
+
   /*
    * Stockfish output processing done here
    * Calls the 'resolve' function of the 'ready' Promise when 'bestmove' uci
