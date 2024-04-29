@@ -75,13 +75,18 @@ export default class StockfishClient {
     }
   }
 
-  public processScore(message: MessageEvent) {
+  public processScore(message: MessageEvent, expectedDepth: number) {
     const text = message.data
 
-    const score = text.match(/\b(score)\b/)
-    const arr = score?.input
-    if (arr) {
-      return arr.split(' ')?.[9]
+    const stringWithScore = text.match(/\b(score)\b/)
+    const matches = EVAL_REGEX.exec(text)
+    if (!matches) return
+    const depth = parseInt(matches[1])
+    const scoreResultString = stringWithScore?.input
+    if (scoreResultString && depth && expectedDepth === depth) {
+      const scoreStr = scoreResultString.split(' ')?.[9]
+      const score = parseInt(scoreStr)
+      return { depth, score }
     }
   }
 
