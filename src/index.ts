@@ -112,20 +112,20 @@ export default class StockfishClient {
     const depth = parseInt(matches[1]),
       multiPv = parseInt(matches[2]),
       isMate = matches[3] === "mate",
-      povEv = parseInt(matches[4]),
+      ev = parseInt(matches[4]),
       evalType = matches[5],
       nodes = parseInt(matches[6]),
       elapsedMs: number = parseInt(matches[7]),
       moves = matches[8].split(" ");
 
     // Sometimes we get #0. Let's just skip it.
-    if (isMate && !povEv) return;
+    if (isMate && !ev) return
 
     // Track max pv index to determine when pv prints are done.
     if (this.expectedPvs < multiPv) this.expectedPvs = multiPv;
 
     // const pivot = 1
-    const ev = -povEv;
+    // const ev = -povEv;
 
     // For now, ignore most upperbound/lowerbound messages.
     // The exception is for multiPV, sometimes non-primary PVs
